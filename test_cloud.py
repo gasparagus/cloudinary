@@ -13,7 +13,7 @@ count = 0
 
 path = 'C:/Users/glombardo/Desktop/to_delete/'
 
-for i in os.listdir('C:/Users/glombardo/Desktop/to_delete'):
+for i in os.listdir('C:/Users/enterwindowuserhere/Desktop/to_delete'):
 	cloudinary.uploader.upload(path+i)
 	count += 1
 
