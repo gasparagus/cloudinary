@@ -1,0 +1,34 @@
+'''Downloads images from a given url in a csv file. Writes the name of the file and a message to another csv.'''
+import os
+import urllib
+import csv
+
+with open('C:/Users/glombardo/Desktop/test/photo_data.csv', 'w') as fh:
+
+	with open('C:/Users/glombardo/Desktop/test/img.csv') as img_file:
+		reader = csv.DictReader(img_file)
+		os.chdir('C:/Users/glombardo/Desktop/test')
+
+
+		for row in reader:
+			url = row['urls']
+			ext_split = url.split('/')[-1]
+			ext_split = ext_split.split('?')[0]
+			ext_split = ext_split.split('.')[-1]
+			pic_name = row['id'] + '.'+ ext_split
+
+
+			try:
+				if not os.path.isfile(pic_name):
+					fieldnames = ['id', 'status']
+					writer = csv.DictWriter(fh, fieldnames=fieldnames)
+					url_open = urllib.urlopen(url)
+					meta = url_open.info()
+					file_size = int(meta.getheaders("Content-Length")[0])
+					urllib.urlretrieve(url, pic_name)
+					print 'Downloading file: %s at %d bytes' % (pic_name, file_size)
+					writer.writerow({'id': pic_name, 'status': 'downloaded'})
+			except:
+				print 'Cannot get photo ', pic_name
+				writer.writerow({'id': pic_name, 'status': 'not downloaded'})
+				
