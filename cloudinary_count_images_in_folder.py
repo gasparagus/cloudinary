@@ -20,6 +20,7 @@ count = 0
 
 list_results_1 = cloudinary.api.resources(type='upload', prefix=cloudinary_folder, max_results=500)
 
+# If the folder has more than 500 images (max value from API), it will return a 'next_cursor' key. The code will then run until complete.
 if 'next_cursor' in list_results_1:
 
 	next_cursor_1 = list_results_1['next_cursor']
@@ -39,6 +40,7 @@ if 'next_cursor' in list_results_1:
 				resource_list.append(ids['public_id']+'\n')
 				count += 1
 				print count
+# IF folder has less than 500 images, no next_cursor key is returned. Therefore the API will not include the next_cursor kwarg.
 else:
 
 	list_results_1 = cloudinary.api.resources(type='upload', prefix=cloudinary_folder, max_results=500)
