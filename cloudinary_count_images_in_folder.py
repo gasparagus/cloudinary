@@ -9,9 +9,6 @@ cloudinary.config(
   api_secret = 'six6YgE4by7NFFRNSM_DUJ7uTVY'  
 )
 
-
-#cloudinary.api.delete_resources_by_prefix('test_01242017/')
-
 resource_list = []
 
 cloudinary_folder = 'all_care_guides/'
