@@ -11,7 +11,7 @@ cloudinary.config(
 
 resource_list = []
 
-cloudinary_folder = 'all_care_guides/'
+cloudinary_folder = 'test/'
 
 count = 0
 
@@ -29,14 +29,17 @@ if 'next_cursor' in list_results_1:
 			count += 1
 			print count
 
+# Try to scan a folder with over 500 but not much over to see if it breaks.
 	while True:
-		list_results_1 = cloudinary.api.resources(type='upload', prefix=cloudinary_folder, max_results=500, next_cursor=list_results_1['next_cursor'])
-		for ids in list_results_1['resources']:
-			with open('list.txt','a') as f:
-				f.write(ids['public_id']+'\n')
-				resource_list.append(ids['public_id']+'\n')
-				count += 1
-				print count
+		try:
+			list_results_1 = cloudinary.api.resources(type='upload', prefix=cloudinary_folder, max_results=500, next_cursor=list_results_1['next_cursor'])
+			for ids in list_results_1['resources']:
+				with open('list.txt','a') as f:
+					f.write(ids['public_id']+'\n')
+					resource_list.append(ids['public_id']+'\n')
+					count += 1
+					print count
+		except: break
 # IF folder has less than 500 images, no next_cursor key is returned. Therefore the API will not include the next_cursor kwarg.
 else:
 
