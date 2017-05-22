@@ -4,9 +4,9 @@ import os
 
 
 cloudinary.config(
-  cloud_name = 'mdxvitals',  
-  api_key = '211682179748443',  
-  api_secret = 'six6YgE4by7NFFRNSM_DUJ7uTVY'  
+  cloud_name = '',  
+  api_key = '',  
+  api_secret = ''  
 )
 
 resource_list = []
